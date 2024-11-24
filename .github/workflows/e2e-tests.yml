@@ -19,8 +19,13 @@ jobs:
           node-version: 16
 
       # Construir y ejecutar los contenedores necesarios
-      - name: Start API and Front containers
+      - name: Build and Start API and Front containers
         run: |
+          # Construir la imagen de la API
+          docker build -t hangman-api .start-code/hangman-api
+          # Construir la imagen del Frontend
+          docker build -t hangman-front .start-code/hangman-front
+          # Iniciar los contenedores
           docker run -d -p 3001:3000 hangman-api
           docker run -d -p 8080:8080 -e API_URL=http://localhost:3001 hangman-front
 
