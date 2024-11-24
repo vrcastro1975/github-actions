@@ -135,6 +135,6 @@ También actualizaremos el workflow para usar `npm test`:
     wait-on: http://localhost:8080
 ```
 
-
+Ahora tenemos un nuevo problema en nuestro workflow con la configuración de vídeos de Cypress, por lo que vamos a desactivarla, ya que no es necesaria para este ejercicio. Para ello, editaremos el fichero `.start-code/hangman-e2e/e2e/cypress.config.ts` y le añadiremos esta línea: `video: false,` para desactivar la grabación de vídeos.  
 
 Con esto termina este tercer ejercicio.

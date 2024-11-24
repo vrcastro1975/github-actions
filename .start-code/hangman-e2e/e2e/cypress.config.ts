@@ -7,4 +7,5 @@ export default defineConfig({
     },
     baseUrl: 'http://localhost:8080'
   },
+  video: false,
 });
