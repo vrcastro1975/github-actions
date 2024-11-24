@@ -3,7 +3,7 @@ name: CI Hangman Front
 on:
   pull_request:
     paths:
-      - 'hangman-front/**'
+      - '.start-code/hangman-front/**'
 
 jobs:
   build-and-test:
@@ -23,17 +23,17 @@ jobs:
       # Instalar dependencias
       - name: Install dependencies
         run: |
-          cd hangman-front
+          cd .start-code/hangman-front
           npm install
 
       # Construir el proyecto
       - name: Build project
         run: |
-          cd hangman-front
+          cd .start-code/hangman-front
           npm run build
 
       # Ejecutar los tests unitarios
       - name: Run unit tests
         run: |
-          cd hangman-front
+          cd .start-code/hangman-front
           npm test
