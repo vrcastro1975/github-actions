@@ -28,3 +28,14 @@ Y, ahora sí, subo los cambios al repositorio remoto:
 git branch -M main
 git push -u origin main
 ```
+Ahora vamos a probar el workflow. Para ello, vamos a crear una rama de trabajo `test-branch`:  
+```bash
+git checkout -b test-branch
+```
+Vamos a hacer un ligero cambio en un fichero para poder pushear cambios, ya que, si no hay cambios, no nos va a dejar hacer push. Posteriormente, haremos una pull request:  
+```bash
+echo "// Test change" >> .start-code/hangman-front/test.js
+git add .
+git commit -m "Testeando cambio para hacer pull request"
+git push origin test-branch
+```
