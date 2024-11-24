@@ -42,3 +42,4 @@ git push origin test-branch
 Ahora me voy al repositorio en Github y voy a crear una pull request: `Pull requests / Compare and pull request / Create pull request`.  
 Ahora vamos a `Actions` y vemos cómo se ha iniciado el workflow.  
 El workflow acaba mal y se señala con una "X". Vamos a revisar qué ha salido mal clicando sobre el workflow.  
+Arreglo el problema en código (borro un fichero que he creado y que no debería estar ahí), git add ., git commit, y git push. Luego voy a Github y le doy a rerun a todos los jobs del workflow, pero me vuelve a dar el mismo fallo (run unit tests, línea 39 (línea 16 del fichero .start-code/hangman-front/src/components/start-game.spec.tsx, que espera un elemento y le llegan dos)). Lo arreglo y subo los cambios.  
