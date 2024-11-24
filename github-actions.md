@@ -46,8 +46,8 @@ Sospecho que el problema se debe a un fichero que he creado por error. Borro el 
 Ahora ya funciona correctamente el workflow, pues ha pasado correctamente los tests unitarios, y puedo mergear la rama de trabajo con la rama main. Para ello, clico en `Merge pull request` y luego `Confirm merge`. Como ya no voy a necesitar más mi rama de trabajo, la borro seleccionando esa opción (en local sí va a seguir existiendo, y tendremos que borrarla también).  
 Vuelvo ahora a mi local y me cambio a la rama `main`. Borro la rama de trabajo con un `git branch -D test-branch`. Luego hago un `git fetch origin` y un `git pull origin main` y ya estoy actualizado en local.  
 Con esto acaba el primer ejercicio.  
-
   
+
 ## Segundo ejercicio:  
 El segundo ejercicio consiste en crear un workflow CD para el proyecto de frontend. Este nuevo workflow debe dispararse manualmente y hacer lo siguiente:  
 * Crear una nueva imagen de Docker
@@ -82,3 +82,37 @@ git add .
 git commit -m "Cambiamos el fichero cd-hangman-front-yml para usar GHCR_PAT en lugar de GITHUB_TOKEN"
 git push
 ```
+(Nota: Al haber un token en código, no me deja hacer push. Como se trata de una prueba, voy a permitir el push en Github. Para ello, voy a https://github.com/vrcastro1975/github-actions/security/secret-scanning/unblock-secret y marco `It's used in tests / Allow me to expose this secret`).  
+Ahora vamos a verificar el workflow en Github. Vamos a la pestaña `Actions` en el repositorio, buscamos de nuevo el workflow `CD Hangman Front` y seleccionamos `Run workflow / Rama main / Run workflow`. (Y nos vuelve a dar error).  
+Si intento loguearme en el container registry también me da error:  
+```bash
+docker login ghcr.io -u vrcastro1975 -p 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
+```
+(PIDO AYUDA A JOAQUIN POR SLACK. SÓLO FALTARÍA ARREGLAR EL POR QUÉ NO PUEDO ACCEDER AL CONTAINER REGISTRY)
+  
+
+## Tercer ejercicio (Opcional 1):
+En este tercer ejercicio hay que crear un workflow que ejecute los tests e2e que se encuentran en este enlance: 03-github-actions/.start-code/hangman-e2e/e2e. Vamos a optar por usar [Cypress action](https://github.com/cypress-io/github-action) para ejecutar los tests.Para ejecutar los tests e2e:
+* Tanto el front como la api se deben estar ejecutando
+```bash
+docker run -d -p 3001:3000 hangman-api
+docker run -d -p 8080:8080 -e API_URL=http://localhost:3001 hangman-front
+```
+* Los tests se ejecutan desde el directorio hangman-e2e/e2e haciendo uso del comando npm run open
+```bash
+cd hangman-e2e/e2e
+npm run open
+```
+
+Para resolver el ejercicio vamos a crear, dentro del directorio `.github/workflows/`, el fichero `e2e-tests.yml`.  
+En dicho fichero, hemos hecho uso de `workflow_dispatch`, al igual que en el ejercicio anterior, para poder lanzar los workflows directamente desde la interfaz de Github. Hemos preparado el entorno, configurando Node.js para que Cypress pueda instalarse y ejecutarse correctamente (actions/setup-node@v3). También hemos ejecutado los contenedores que vamos a necesitar (front y api). Por último, hemos instalado las dependencias para los tests e2e (npm install) y hemos ejecutado los tests e2e con Cypress (cypress-io/github-action@v5).  
+  
+Ahora subimos el workflow al repositorio remoto:  
+```bash
+git add .
+git commit -m "Añadimos E2E tests workflow con Cypress"
+git push origin main
+```
+Y ahora probamos el workflow. Para ello, nos vamos a la pestaña `Actions` en nuestro repositorio de Github, buscamos el workflow `E2E Tests` y lo ejecutamos con `Run workflow`.  
+Por último, revisamos los resultados en los logs del workflow.  
+Con esto termina este tercer ejercicio.
