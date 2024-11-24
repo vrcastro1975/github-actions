@@ -61,3 +61,24 @@ git add .
 git commit -m "Añadido el workflow CD para hangman-front"
 git push origin main
 ```
+Ahora nos vamos a Github y, en la sección "Actions", clicamos sobre el nuevo workflow `CD Hangman Front` y, a continuación, clicamos en `Run workflow`. Seleccionamos la rama `main` y `Run workflow`.  
+Me da un error `denied: installation not allowed to Create organization package`.  
+Buscando en la [documentación oficial] (https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry), me aparece que, para autenticarse con el Container Registry hay que hacerlo con personal access token.  
+Por tanto, vamos a probar con un `Personal Access Token (PAT)`. Por tanto, en el panel izquierdo de Githib nos vamos a `<> Developer settings / Personal access tokens / Tokens (classic)`. Una vez ahí, seleccionamos `Generate new token (classic)`.  
+Marcamos al menos estas ocpiones:  
+*write:packages
+*read:packages (se marcará automáticamente al seleccionar el anterior)
+*delete:packages
+En `Note` escribimos por ejemplo `github-actions-exercise` y las demás opciones las dejamos tal cual, y clicamos en `Generate token`. Copiamos el token en un lugar seguro. Yo lo pongo aquí, porque cuando acabe el ejercicio lo borraré: `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`.  
+Ahora vamos a añadir el token como un secreto en el repositorio:  
+Vamos al repositorio en Github. Nos vamos a `Settings / Secrets and variables / Actions / New repository secret`:  
+*Name = GHCR_PAT
+*Secret = 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
+A continuación, clicamos en `Add secret`.
+Ahora queda modificar el fichero `cd-hangman-frontend.yml` para que use el PAT en lugar del GITHUB_TOKEN, comitear y subir los cambios a Github. El cambio consistirá en cambiar la línea `password: ${{ secrets.GITHUB_TOKEN }}` por `password: ${{ secrets.GHCR_PAT }}`.  
+Ahora grabamos los cambios los subimos a Github.  
+```bash
+git add .
+git commit -m "Cambiamos el fichero cd-hangman-front-yml para usar GHCR_PAT en lugar de GITHUB_TOKEN"
+git push
+```
