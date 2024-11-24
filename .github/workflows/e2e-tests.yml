@@ -8,17 +8,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout del código
+      # Paso 1: Checkout del código
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Configurar Node.js para Cypress
+      # Paso 2: Configurar Node.js para Cypress
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 16
 
-      # Construir y ejecutar los contenedores necesarios
+      # Paso 3: Construir y ejecutar los contenedores necesarios
       - name: Build and Start API and Front containers
         run: |
           # Construir la imagen de la API
@@ -29,16 +29,16 @@ jobs:
           docker run -d -p 3001:3000 hangman-api
           docker run -d -p 8080:8080 -e API_URL=http://localhost:3001 hangman-front
 
-      # Instalar dependencias para los tests e2e
+      # Paso 4: Instalar dependencias para los tests e2e
       - name: Install e2e dependencies
         run: |
           cd .start-code/hangman-e2e/e2e
           npm install
 
-      # Ejecutar los tests e2e con Cypress
+      # Paso 5: Ejecutar los tests e2e con Cypress
       - name: Run Cypress tests
         uses: cypress-io/github-action@v5
         with:
           working-directory: .start-code/hangman-e2e/e2e
-          start: npm start
+          start: npm test
           wait-on: http://localhost:8080

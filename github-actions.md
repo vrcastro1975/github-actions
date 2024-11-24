@@ -115,4 +115,26 @@ git push origin main
 ```
 Y ahora probamos el workflow. Para ello, nos vamos a la pestaña `Actions` en nuestro repositorio de Github, buscamos el workflow `E2E Tests` y lo ejecutamos con `Run workflow`.  
 Por último, revisamos los resultados en los logs del workflow.  
+  
+El paso `Run Cypress tests` falla. Analizando la salida, parece que falta un script `start` en el fichero `.start-code/hangman-e2e/e2e/package.json`. Vamos a incluirlo para que lance Cypress en modo ejecución:  
+```json
+{
+  "scripts": {
+    "start": "cypress open",
+    "test": "cypress run"
+  }
+}
+```
+También actualizaremos el workflow para usar `npm test`:  
+```yaml
+- name: Run Cypress tests
+  uses: cypress-io/github-action@v5
+  with:
+    working-directory: .start-code/hangman-e2e/e2e
+    start: npm test
+    wait-on: http://localhost:8080
+```
+
+
+
 Con esto termina este tercer ejercicio.
