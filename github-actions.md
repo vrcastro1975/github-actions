@@ -42,4 +42,22 @@ git push origin test-branch
 Ahora me voy al repositorio en Github y voy a crear una pull request: `Pull requests / Compare and pull request / Create pull request`.  
 Ahora vamos a `Actions` y vemos cómo se ha iniciado el workflow.  
 El workflow acaba mal y se señala con una "X". Vamos a revisar qué ha salido mal clicando sobre el workflow.  
-Arreglo el problema en código (borro un fichero que he creado y que no debería estar ahí), git add ., git commit, y git push. Luego voy a Github y le doy a rerun a todos los jobs del workflow, pero me vuelve a dar el mismo fallo (run unit tests, línea 39 (línea 16 del fichero .start-code/hangman-front/src/components/start-game.spec.tsx, que espera un elemento y le llegan dos)). Lo arreglo y subo los cambios.  
+Sospecho que el problema se debe a un fichero que he creado por error. Borro el fichero, hago `git add .`, `git commit`, y `git push`. Luego voy a Github y le doy a rerun a todos los jobs del workflow, pero me vuelve a dar el mismo fallo (run unit tests, línea 39 (línea 16 del fichero .start-code/hangman-front/src/components/start-game.spec.tsx, que espera un elemento y le llegan dos)). Lo arreglo y subo los cambios.  
+Ahora ya funciona correctamente el workflow, pues ha pasado correctamente los tests unitarios, y puedo mergear la rama de trabajo con la rama main. Para ello, clico en `Merge pull request` y luego `Confirm merge`. Como ya no voy a necesitar más mi rama de trabajo, la borro seleccionando esa opción (en local sí va a seguir existiendo, y tendremos que borrarla también).  
+Vuelvo ahora a mi local y me cambio a la rama `main`. Borro la rama de trabajo con un `git branch -D test-branch`. Luego hago un `git fetch origin` y un `git pull origin main` y ya estoy actualizado en local.  
+Con esto acaba el primer ejercicio.  
+
+  
+## Segundo ejercicio:  
+El segundo ejercicio consiste en crear un workflow CD para el proyecto de frontend. Este nuevo workflow debe dispararse manualmente y hacer lo siguiente:  
+* Crear una nueva imagen de Docker
+* Publicar dicha imagen en el [container registry de GitHub](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry)  
+  
+Para ello, vamos a crear el nuevo workflow en la carpeta .github/workflows/ y con el nombre `cd-hangman-front.yml`.  
+Al poner `workfow_dispatch`, hacemos que el workflow se dispare desde la interfaz de Github (pestaña Actions). Para acceder al Container Registry de Github, usaremos el token GITHUB_TOKEN. Para crear la etiqueta de la imagen, usaremos el nombre del propietario del repositorio (repository_owner). Con docker push se sube la imagen al registro de Github. Podemos ver todo esto en el fichero cd-hangman-front.yml.  
+Ahora volvemos a la raíz del repositorio y subimos los cambios:  
+```bash
+git add .
+git commit -m "Añadido el workflow CD para hangman-front"
+git push origin main
+```
