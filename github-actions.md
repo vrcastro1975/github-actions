@@ -136,5 +136,156 @@ También actualizaremos el workflow para usar `npm test`:
 ```
 
 Ahora tenemos un nuevo problema en nuestro workflow con la configuración de vídeos de Cypress, por lo que vamos a desactivarla, ya que no es necesaria para este ejercicio. Para ello, editaremos el fichero `.start-code/hangman-e2e/e2e/cypress.config.ts` y le añadiremos esta línea: `video: false,` para desactivar la grabación de vídeos.  
+  
+Y, por fin, todos los tests pasan:  
+```
+Run cypress-io/github-action@v5
+  
+Received 16578342 of 16578342 (100.0%), 57.5 MBs/sec
+Cache Size: ~16 MB (16578342 B)
+/usr/bin/tar -xf /home/runner/work/_temp/81d3d4cd-639b-4fa1-9ff3-c89bc9a906dd/cache.tzst -P -C /home/runner/work/github-actions/github-actions --use-compress-program unzstd
+Cache restored successfully
+Received 134217728 of 165315580 (81.2%), 127.9 MBs/sec
+Received 165315580 of 165315580 (100.0%), 121.8 MBs/sec
+Cache Size: ~158 MB (165315580 B)
+/usr/bin/tar -xf /home/runner/work/_temp/7f8c78a2-648f-4ba9-bab6-d50ddfd1e830/cache.tzst -P -C /home/runner/work/github-actions/github-actions --use-compress-program unzstd
+Cache restored successfully
+/opt/hostedtoolcache/node/16.20.2/x64/bin/npm ci
+added 166 packages, and audited 167 packages in 2s
+28 packages are looking for funding
+  run `npm fund` for details
+5 vulnerabilities (3 moderate, 2 high)
+To address issues that do not require attention, run:
+  npm audit fix
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+Run `npm audit` for details.
+/opt/hostedtoolcache/node/16.20.2/x64/bin/npx cypress cache list
+┌─────────┬───────────────────┐
+│ version │ last used         │
+├─────────┼───────────────────┤
+│ 10.10.0 │ a few seconds ago │
+└─────────┴───────────────────┘
+start server command "npm test"
+current working directory "/home/runner/work/github-actions/github-actions/.start-code/hangman-e2e/e2e"
+waiting on "http://localhost:8080" with timeout of 60 seconds
+/opt/hostedtoolcache/node/16.20.2/x64/bin/npm test
+> @pumpbit-quiz-maker/e2e@1.0.0 test
+> cypress run
+[3162:1124/193553.044918:ERROR:gpu_memory_buffer_support_x11.cc(44)] dri3 extension not supported.
+Missing baseUrl in compilerOptions. tsconfig-paths will be skipped
+====================================================================================================
+  (Run Starting)
+  ┌────────────────────────────────────────────────────────────────────────────────────────────
+  │ Cypress:        10.10.0                                                                        │
+  │ Browser:        Electron 106 (headless)                                                        │
+  │ Node Version:   v20.13.1 (/home/runner/runners/2.320.0/externals/node20/bin/node)              │
+  │ Specs:          2 found (other-test.cy.ts, test.cy.ts)                                         │
+  │ Searched:       cypress/e2e/**/*.cy.{js,jsx,ts,tsx}                                            │
+  └────────────────────────────────────────────────────────────────────────────────────────────
+─────────────────────────────────────────────────────────────────────────────────────────────
+                                                                                                    
+  Running:  other-test.cy.ts                                                                (1 of 2)
+====================================================================================================
+  (Run Starting)
+  ┌────────────────────────────────────────────────────────────────────────────────────────────
+  │ Cypress:        10.10.0                                                                        │
+  │ Browser:        Electron 106 (headless)                                                        │
+  │ Node Version:   v16.20.2 (/opt/hostedtoolcache/node/16.20.2/x64/bin/node)                      │
+  │ Specs:          2 found (other-test.cy.ts, test.cy.ts)                                         │
+  │ Searched:       cypress/e2e/**/*.cy.{js,jsx,ts,tsx}                                            │
+  └────────────────────────────────────────────────────────────────────────────────────────────
+─────────────────────────────────────────────────────────────────────────────────────────────
+                                                                                                    
+  Running:  other-test.cy.ts                                                                (1 of 2)
+
+  empty spec
+
+  empty spec
+    ✓ passes (252ms)
+  1 passing (281ms)
+  (Results)
+  ┌────────────────────────────────────────────────────────────────────────────────────────────
+  │ Tests:        1                                                                                │
+  │ Passing:      1                                                                                │
+  │ Failing:      0                                                                                │
+  │ Pending:      0                                                                                │
+  │ Skipped:      0                                                                                │
+  │ Screenshots:  0                                                                                │
+  │ Video:        false                                                                            │
+  │ Duration:     0 seconds                                                                        │
+  │ Spec Ran:     other-test.cy.ts                                                                 │
+  └────────────────────────────────────────────────────────────────────────────────────────────
+    ✓ passes (255ms)
+  1 passing (290ms)
+  (Results)
+  ┌────────────────────────────────────────────────────────────────────────────────────────────
+  │ Tests:        1                                                                                │
+  │ Passing:      1                                                                                │
+  │ Failing:      0                                                                                │
+  │ Pending:      0                                                                                │
+  │ Skipped:      0                                                                                │
+  │ Screenshots:  0                                                                                │
+  │ Video:        false                                                                            │
+  │ Duration:     0 seconds                                                                        │
+  │ Spec Ran:     other-test.cy.ts                                                                 │
+  └────────────────────────────────────────────────────────────────────────────────────────────
+─────────────────────────────────────────────────────────────────────────────────────────────
+                                                                                                    
+  Running:  test.cy.ts                                                                      (2 of 2)
+─────────────────────────────────────────────────────────────────────────────────────────────
+                                                                                                    
+  Running:  test.cy.ts                                                                      (2 of 2)
+
+  empty spec
+
+  empty spec
+    ✓ passes (212ms)
+  1 passing (248ms)
+  (Results)
+  ┌────────────────────────────────────────────────────────────────────────────────────────────
+  │ Tests:        1                                                                                │
+  │ Passing:      1                                                                                │
+  │ Failing:      0                                                                                │
+  │ Pending:      0                                                                                │
+  │ Skipped:      0                                                                                │
+  │ Screenshots:  0                                                                                │
+  │ Video:        false                                                                            │
+  │ Duration:     0 seconds                                                                        │
+  │ Spec Ran:     test.cy.ts                                                                       │
+  └────────────────────────────────────────────────────────────────────────────────────────────
+    ✓ passes (234ms)
+  1 passing (260ms)
+====================================================================================================
+  (Run Finished)
+  (Results)
+       Spec                                              Tests  Passing  Failing  Pending  Skipped  
+  ┌────────────────────────────────────────────────────────────────────────────────────────────
+  │ ✔  other-test.cy.ts                         276ms        1        1        -        -        - │
+  ├────────────────────────────────────────────────────────────────────────────────────────────
+  │ ✔  test.cy.ts                               230ms        1        1        -        -        - │
+  └────────────────────────────────────────────────────────────────────────────────────────────
+    ✔  All specs passed!                        506ms        2        2        -        -        -  
+  ┌────────────────────────────────────────────────────────────────────────────────────────────
+  │ Tests:        1                                                                                │
+  │ Passing:      1                                                                                │
+  │ Failing:      0                                                                                │
+  │ Pending:      0                                                                                │
+  │ Skipped:      0                                                                                │
+  │ Screenshots:  0                                                                                │
+  │ Video:        false                                                                            │
+  │ Duration:     0 seconds                                                                        │
+  │ Spec Ran:     test.cy.ts                                                                       │
+  └────────────────────────────────────────────────────────────────────────────────────────────
+====================================================================================================
+  (Run Finished)
+       Spec                                              Tests  Passing  Failing  Pending  Skipped  
+  ┌────────────────────────────────────────────────────────────────────────────────────────────
+  │ ✔  other-test.cy.ts                         267ms        1        1        -        -        - │
+  ├────────────────────────────────────────────────────────────────────────────────────────────
+  │ ✔  test.cy.ts                               254ms        1        1        -        -        - │
+  └────────────────────────────────────────────────────────────────────────────────────────────
+    ✔  All specs passed!                        521ms        2        2        -        -        -  
+```
 
 Con esto termina este tercer ejercicio.
