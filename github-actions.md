@@ -39,3 +39,6 @@ git add .
 git commit -m "Testeando cambio para hacer pull request"
 git push origin test-branch
 ```
+Ahora me voy al repositorio en Github y voy a crear una pull request: `Pull requests / Compare and pull request / Create pull request`.  
+Ahora vamos a `Actions` y vemos cómo se ha iniciado el workflow.  
+El workflow acaba mal y se señala con una "X". Vamos a revisar qué ha salido mal clicando sobre el workflow.  
