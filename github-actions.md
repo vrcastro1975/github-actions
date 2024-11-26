@@ -88,7 +88,40 @@ Si intento loguearme en el container registry también me da error:
 ```bash
 docker login ghcr.io -u vrcastro1975 -p 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
 ```
-(PIDO AYUDA A JOAQUIN POR SLACK. SÓLO FALTARÍA ARREGLAR EL POR QUÉ NO PUEDO ACCEDER AL CONTAINER REGISTRY)
+El problema que tenía para acceder al Container Registry parece ser que era doble.  
+Por un lado, tenía que activar los permisos de workflow dentro del repositorio: `Settings / Actions / General / Workflow permissions / Read and write permissions`.  
+Por otro lado, el token personal no tenía todos los permisos necesarios, así que volví sobre mis pasos y creé un token con los permisos adecuados.  
+Una vez que vi que el workflow funcionaba, quité el token personal y volví al token de Github (GITHUB_TOKEN). Vi que funcionaba todo y terminé con esto el ejercicio. En el paso `Push Docker image` podemos ver el resultado:  
+```
+Run docker push ghcr.io/vrcastro1975/github-actions:latest
+The push refers to repository [ghcr.io/vrcastro1975/github-actions]
+a1b974bed2fd: Preparing
+cf39267c73a6: Preparing
+f43507c2111b: Preparing
+5f70bf18a086: Preparing
+3f431f96b072: Preparing
+a181cbf898a0: Preparing
+570fc47f2558: Preparing
+a181cbf898a0: Waiting
+5d17421f1571: Preparing
+7bb2a9d37337: Preparing
+3e207b409db3: Preparing
+570fc47f2558: Waiting
+5d17421f1571: Waiting
+7bb2a9d37337: Waiting
+3e207b409db3: Waiting
+5f70bf18a086: Pushed
+cf39267c73a6: Pushed
+a1b974bed2fd: Pushed
+f43507c2111b: Pushed
+3f431f96b072: Pushed
+5d17421f1571: Pushed
+a181cbf898a0: Pushed
+570fc47f2558: Pushed
+3e207b409db3: Pushed
+7bb2a9d37337: Pushed
+latest: digest: sha256:e6d8ee39949ca403f8fdf87fb48c6d7f687d273b2286c6f6187dca389efd590b size: 2396
+```
   
 
 ## Tercer ejercicio (Opcional 1):
