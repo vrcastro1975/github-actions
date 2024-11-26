@@ -18,14 +18,15 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
-          password: ${{ secrets.GHCR_PAT }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       # Crear una nueva imagen de Docker
       - name: Build Docker image
         run: |
-          docker build -t ghcr.io/${{ github.repository_owner }}/hangman-front:latest .start-code/hangman-front
+          docker build -t ghcr.io/${{ github.repository_owner }}/github-actions:latest .start-code/hangman-front
 
       # Publicar la imagen en el Container Registry
       - name: Push Docker image
         run: |
-          docker push ghcr.io/${{ github.repository_owner }}/hangman-front:latest
+          docker push ghcr.io/${{ github.repository_owner }}/github-actions:latest
+
